@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://makar.ru/icss/lab4/xsd"
+           xmlns="http://makar.ru/icss/lab4/xsd"
+           xmlns:tns="http://makar.ru/icss/lab4/xsd"
+           elementFormDefault="qualified">
+    <xs:simpleType name="nameRestrictionType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3"/>
+            <xs:maxLength value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="properNameType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[А-Я][а-я]{2,}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="personAgeType">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="18"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="departmentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ИМиАТ"/>
+            <xs:enumeration value="ИАСиЭ"/>
+            <xs:enumeration value="ИИТиР"/>
+            <xs:enumeration value="ИПМФиИ"/>
+            <xs:enumeration value="ИБиЭ"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="personType" abstract="true">
+        <xs:sequence>
+            <xs:element name="lastName" type="properNameType"/>
+            <xs:element name="firstName" type="properNameType"/>
+            <xs:element name="patronymic" type="properNameType" minOccurs="0"/>
+            <xs:choice>
+                <xs:element name="birthDate" type="xs:date"/>
+                <xs:element name="age" type="personAgeType"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="groupType">
+        <xs:sequence>
+            <xs:element name="name" type="nameRestrictionType"/>
+            <xs:element name="department" type="departmentType"/>
+            <xs:element name="baseCost" type="xs:double"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:int"/>
+    </xs:complexType>
+
+    <xs:complexType name="studentType">
+        <xs:complexContent>
+            <xs:extension base="personType">
+                <xs:sequence>
+                    <xs:element name="onBudget" type="xs:boolean" minOccurs="0" default="false"/>
+                    <xs:element name="groupRef" type="xs:int"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="groupsType">
+        <xs:sequence>
+            <xs:element name="group" type="groupType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="studentsType">
+        <xs:sequence>
+            <xs:element name="student" type="studentType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="info">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="groups" type="groupsType" minOccurs="0">
+                    <xs:unique name="uniqueGroupName">
+                        <xs:selector xpath="tns:group"/>
+                        <xs:field xpath="tns:name"/>
+                    </xs:unique>
+                </xs:element>
+                <xs:element name="students" type="studentsType" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="groupId">
+            <xs:selector xpath="tns:groups/tns:group"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:keyref name="groupRef" refer="tns:groupId">
+            <xs:selector xpath="tns:students/tns:student"/>
+            <xs:field xpath="tns:groupRef"/>
+        </xs:keyref>
+    </xs:element>
+    <xs:element name="response" substitutionGroup="info"/>
+</xs:schema>

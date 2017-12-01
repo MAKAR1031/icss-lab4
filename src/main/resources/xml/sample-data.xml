@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info xmlns="http://makar.ru/icss/lab4/xsd">
+    <groups>
+        <group id="1">
+            <name>ИСТм-990</name>
+            <department>ИИТиР</department>
+            <baseCost>12000</baseCost>
+        </group>
+        <group id="2">
+            <name>ПРИм-990</name>
+            <department>ИИТиР</department>
+            <baseCost>9000</baseCost>
+        </group>
+        <group id="3">
+            <name>ВТм-990</name>
+            <department>ИИТиР</department>
+            <baseCost>8800</baseCost>
+        </group>
+        <group id="4">
+            <name>ИБм-990</name>
+            <department>ИИТиР</department>
+            <baseCost>11500</baseCost>
+        </group>
+        <group id="5">
+            <name>ПИм-990</name>
+            <department>ИИТиР</department>
+            <baseCost>7000</baseCost>
+        </group>
+    </groups>
+    <students>
+        <student>
+            <lastName>Сидоров</lastName>
+            <firstName>Афанасий</firstName>
+            <patronymic>Геннадьевич</patronymic>
+            <birthDate>2097-11-15</birthDate>
+            <onBudget>true</onBudget>
+            <groupRef>1</groupRef>
+        </student>
+        <student>
+            <lastName>Иванов</lastName>
+            <firstName>Сергей</firstName>
+            <birthDate>2109-03-05</birthDate>
+            <onBudget>true</onBudget>
+            <groupRef>1</groupRef>
+        </student>
+        <student>
+            <lastName>Иванов</lastName>
+            <firstName>Андрей</firstName>
+            <birthDate>2109-03-05</birthDate>
+            <onBudget>true</onBudget>
+            <groupRef>1</groupRef>
+        </student>
+        <student>
+            <lastName>Иванов</lastName>
+            <firstName>Иван</firstName>
+            <patronymic>Иванович</patronymic>
+            <birthDate>2109-03-05</birthDate>
+            <onBudget>true</onBudget>
+            <groupRef>1</groupRef>
+        </student>
+        <student>
+            <lastName>Иванов</lastName>
+            <firstName>Иван</firstName>
+            <birthDate>2109-03-05</birthDate>
+            <groupRef>1</groupRef>
+        </student>
+        <student>
+            <lastName>Самарина</lastName>
+            <firstName>Ирина</firstName>
+            <patronymic>Федоровна</patronymic>
+            <age>22</age>
+            <groupRef>2</groupRef>
+        </student>
+        <student>
+            <lastName>Денисов</lastName>
+            <firstName>Владислав</firstName>
+            <birthDate>2100-09-17</birthDate>
+            <onBudget>true</onBudget>
+            <groupRef>2</groupRef>
+        </student>
+    </students>
+</info>

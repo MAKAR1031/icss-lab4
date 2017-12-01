@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible">
+    <title>Отчет</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, serif;
+            font-size: 1.2em;
+        }
+
+        .content {
+            width: 80%;
+            margin: 15px auto;
+        }
+
+        .groups table, .students table {
+            border-collapse: collapse;
+            width: 90%;
+            text-align: center;
+        }
+
+        .groups table tr th,
+        .groups table tr td,
+        .students table tr th,
+        .students table tr td {
+            padding: 3px;
+            border: 1px solid black;
+        }
+
+        .groups table tr:nth-child(2n) td,
+        .students table tr:nth-child(2n) td {
+            background-color: #ededed;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <h1>Отчет по группам и студентам</h1>
+    <hr/>
+    {% if groups.size != 0 %}
+        <div class="groups">
+            <h2>Группы</h2>
+            <table>
+                <tr>
+                    <th>№</th>
+                    <th>Название</th>
+                    <th>Институт</th>
+                    <th>Базовая стоимость, ₽</th>
+                </tr>
+                {% for group in groups %}
+                    <tr>
+                        <td>{{ group.id }}</td>
+                        <td>{{ group.name }}</td>
+                        <td>{{ group.department.value }}</td>
+                        <td>{{ group.baseCost }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4">
+                        Всего групп: {{ groups.size }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {% endif %}
+
+    {% if students.size != 0 %}
+        <div class="students">
+            <h2>Студенты</h2>
+            <table>
+                <tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Дата рождения</th>
+                    <th>Возраст</th>
+                    <th>На бютжете</th>
+                    <th>Номер группы</th>
+                </tr>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.lastName }}</td>
+                        <td>{{ student.firstName }}</td>
+                        <td>{{ student.patronymic }}</td>
+                        <td>{{ student.birthDate }}</td>
+                        <td>{{ student.age }}</td>
+                        <td>{{ (student.onBudget) ? '✓' : '✘' }}</td>
+                        <td>{{ student.groupRef }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="7">
+                        Всего студентов: {{ students.size }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {% endif %}
+    {% if (groups.size == 0) and (students.size == 0) %}
+        <p>Документ не содержит данных</p>
+    {% endif %}
+</div>
+</body>
+</html>
